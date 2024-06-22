@@ -691,7 +691,6 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, AVC
 	
 	override init() {
 		super.init()
-		setupSession()
 	}
 	
 	private func setupSession() {
@@ -702,7 +701,7 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, AVC
 			print("Audio device is unavailable")
 			return
 		}
-		
+
 		do {
 			let audioInput = try AVCaptureDeviceInput(device: audioDevice)
 			if session.canAddInput(audioInput) {
@@ -731,6 +730,8 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, AVC
 	}
 	
 	func startRecording() {
+        setupSession()
+
 		captureSession?.startRunning()
 		
 		let tempDir = FileManager.default.temporaryDirectory
